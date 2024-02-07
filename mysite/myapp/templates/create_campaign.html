@@ -1,0 +1,11 @@
+<!-- templates/create_campaign.html -->
+<h1>Create Campaign</h1>
+
+<form method="post" action="{% url 'create_campaign' %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <input type="submit" value="Create Campaign">
+</form>
+
+<a href="{% url 'user_profile' %}">Back to Profile</a>

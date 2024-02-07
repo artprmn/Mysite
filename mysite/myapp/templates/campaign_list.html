@@ -1,0 +1,6 @@
+<!-- Example: myapp/templates/myapp/campaign_list.html -->
+<ul>
+  {% for campaign in campaigns %}
+    <li><a href="{% url 'campaign_detail' campaign_id=campaign.id %}">{{ campaign.name }}</a></li>
+  {% endfor %}
+</ul>

@@ -1,0 +1,6 @@
+<h2>Add House to {{ campaign.name }}</h2>
+<form method="post" action="{% url 'add_house' campaign_id=campaign.id %}">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Add House</button>
+</form>

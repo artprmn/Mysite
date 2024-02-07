@@ -1,0 +1,92 @@
+<!-- templates/myapp/house_detail.html -->
+{% extends 'base_generic.html' %}
+
+{% block content %}
+  <h2>{{ house.city }}, {{ house.street }}, {{ house.house_number }}</h2>
+
+  <!-- Форма для добавления нового обхода -->
+  <h3>Add Apartment Visit</h3>
+  <form method="post" action="{% url 'enter_apartment_visit' house_id=house.id %}" style="margin-bottom: 20px;">
+    {% csrf_token %}
+    <div style="margin-bottom: 10px;">
+      <label for="apartment_number">Apartment Number:</label><br>
+      <input type="number" id="apartment_number" name="apartment_number" min="1" required>
+    </div>
+    <div style="margin-bottom: 10px;">
+      <label for="door_opened">Door Opened:</label><br>
+      <input type="checkbox" id="door_opened" name="door_opened">
+    </div>
+    <div style="margin-bottom: 10px;">
+      <label for="date">Date:</label><br>
+      <input type="date" id="date" name="date">
+    </div>
+    <div style="margin-bottom: 10px;">
+      <label for="time">Time:</label><br>
+      <input type="time" id="time" name="time">
+    </div>
+    <div style="margin-bottom: 10px;">
+      <label for="reaction">Reaction:</label><br>
+      <select id="reaction" name="reaction">
+        <option value="positive">Positive</option>
+        <option value="neutral">Neutral</option>
+        <option value="negative">Negative</option>
+      </select>
+    </div>
+    <div style="margin-bottom: 10px;">
+      <label for="contact_name">Contact Name:</label><br>
+      <input type="text" id="contact_name" name="contact_name">
+    </div>
+    <div style="margin-bottom: 10px;">
+      <label for="contact_phone">Contact Phone:</label><br>
+      <input type="tel" id="contact_phone" name="contact_phone">
+    </div>
+    <div style="margin-bottom: 10px;">
+      <label for="comment">Comment:</label><br>
+      <textarea id="comment" name="comment"></textarea>
+    </div>
+    <button type="submit">Submit</button>
+  </form>
+
+  <!-- Отображение списка обходов -->
+  <h3>Apartment Visits</h3>
+  {% if visits %}
+    <style>
+      table {
+        border-collapse: collapse;
+        width: 100%;
+      }
+      th, td {
+        padding: 8px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+      }
+    </style>
+    <table>
+      <tr>
+        <th>Apartment Number</th>
+        <th>Timestamp</th>
+        <th>Door Status</th>
+        <th>Reaction</th>
+        <th>Contact Name</th>
+        <th>Contact Phone</th>
+        <th>Comment</th>
+      </tr>
+      {% for visit in visits %}
+        <tr>
+          <td>{{ visit.apartment_number }}</td>
+          <td>{{ visit.timestamp }}</td>
+          <td>{% if visit.door_opened %}Door opened{% else %}Door closed{% endif %}</td>
+          <td>{{ visit.reaction }}</td>
+          <td>{{ visit.contact_name }}</td>
+          <td>{{ visit.contact_phone }}</td>
+          <td>{{ visit.comment }}</td>
+        </tr>
+      {% endfor %}
+    </table>
+  {% else %}
+    <p>No apartment visits yet.</p>
+  {% endif %}
+
+  <!-- Кнопка для возврата на страницу компании -->
+  <a href="{% url 'campaign_detail' campaign_id=house.campaign.id %}">Back to Campaign</a>
+{% endblock %}

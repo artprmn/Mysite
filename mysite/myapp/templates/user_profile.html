@@ -1,0 +1,54 @@
+<!-- user_profile.html -->
+
+{% extends 'base_generic.html' %}
+
+{% block content %}
+  <style>
+    .profile-container {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .profile-column {
+      width: 48%; /* Ширина каждого столбца */
+    }
+  </style>
+
+  <div class="profile-container">
+    <!-- Левая часть: Информация о пользователе -->
+    <div class="profile-column">
+      <h1>User Profile</h1>
+      <p>Username: {{ user_profile.user.username }}</p>
+      <p>First Name: {{ user_profile.user.first_name }}</p>
+      <p>Last Name: {{ user_profile.user.last_name }}</p>
+      <p>Email: {{ user_profile.user.email }}</p>
+      <p>Phone: {{ user_profile.phone }}</p>
+      <p>Birth date: {{ user_profile.birth_date }}</p>
+      <p>Address: {{ user_profile.address }}</p>
+      <p>Gender: {{ user_profile.get_gender_display }}</p>
+
+      <h2>Edit Profile</h2>
+      <a href="{% url 'edit_profile' %}">Edit Profile</a>
+    </div>
+
+    <!-- Правая часть: Список кампаний -->
+    <div class="profile-column">
+      <h2>Campaigns</h2>
+      <ul>
+        {% for campaign in campaigns %}
+          <li>
+            <a href="{% url 'campaign_detail' campaign.id %}">{{ campaign.name }}</a>
+          </li>
+        {% endfor %}
+      </ul>
+
+      <!-- Перемещаем кнопку "Add Campaign" в конец левого столбца -->
+      <h2>Add Campaign</h2>
+      <a href="{% url 'create_campaign' %}">Add Campaign</a>
+
+    <!-- Добавляем кнопку для перехода на страницу статистики кампании -->
+      <h2>Campaign Statistics</h2>
+      <a href="{% url 'campaign_statistics' %}">View Campaign Statistics</a>
+    </div>
+  </div>
+{% endblock %}

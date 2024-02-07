@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Campaign Statistics{% endblock %}</title>
+</head>
+<body>
+    <header>
+        <a href="{% url 'user_profile' %}">Back to User Profile Page</a>
+    </header>
+
+    <!-- Статистика по компаниям -->
+    <h1>Статистика по компаниям:</h1>
+
+    {% for campaign in campaign_data %}
+        <!-- Информация о компании -->
+        <h2>{{ campaign.campaign_name }}</h2>
+        <p>Всего открытых дверей: {{ campaign.total_visits }}</p>
+        <p>Позитивные реакции: {{ campaign.positive_reactions }}</p>
+        <p>Нейтральные реакции: {{ campaign.neutral_reactions }}</p>
+        <p>Негативные реакции: {{ campaign.negative_reactions }}</p>
+        <p>Всего полученных контактов: {{ campaign.total_contacts }}</p>
+
+        <!-- Статистика по домам -->
+        <h3>Статистика по домам:</h3>
+        {% for house in campaign.houses %}
+            <h4>{{ house.house_name }}</h4>
+            <p>Всего открытых дверей: {{ house.total_visits }}</p>
+            <p>Позитивные реакции: {{ house.positive_reactions }}</p>
+            <p>Нейтральные реакции: {{ house.neutral_reactions }}</p>
+            <p>Негативные реакции: {{ house.negative_reactions }}</p>
+            <p>Всего полученных контактов: {{ house.total_contacts }}</p>
+        {% endfor %}
+    {% endfor %}
+</body>
+</html>

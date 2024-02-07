@@ -1,0 +1,19 @@
+<!-- templates/house_list.html -->
+<h2>{{ campaign.name }}</h2>
+
+{% for house in houses %}
+  <div>
+    <h3>{{ house.city }}, {{ house.street }}, {{ house.house_number }}</h3>
+    <p>
+      <button onclick="window.location.href='{% url 'house_detail' house_id=house.id %}'">Просмотреть обходы</button>
+      <!-- Добавьте кнопку или ссылку для просмотра обходов -->
+    </p>
+  </div>
+{% endfor %}
+
+<h2>Добавить обход</h2>
+<form method="post" action="{% url 'enter_apartment_visit' house_id=selected_house.id %}">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Submit</button>
+</form>

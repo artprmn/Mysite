@@ -1,0 +1,12 @@
+<!-- templates/myapp/apartment_visit.html -->
+{% extends 'base_generic.html' %}
+
+{% block content %}
+  <h1>Apartment Visit</h1>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Submit</button>
+  </form>
+  <a href="{% url 'house_detail' house_id=house.id %}">Back to House Detail</a>
+{% endblock %}

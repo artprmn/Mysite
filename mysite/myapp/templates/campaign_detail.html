@@ -1,0 +1,33 @@
+<!-- templates/myapp/campaign_detail.html -->
+{% extends 'base_generic.html' %}
+
+{% block content %}
+  <h2>{{ campaign.name }}</h2>
+
+  <!-- Кнопки для управления компанией -->
+  <a href="{% url 'add_house' campaign_id=campaign.id %}">Add House</a>
+
+  {% for house in houses %}
+    <div>
+      <h3><a href="{% url 'house_detail' house_id=house.id %}">{{ house.city }}, {{ house.street }}, {{ house.house_number }}</a></h3>
+      <!-- Форма для добавления нового обхода -->
+      <h4>Add Apartment Visit</h4>
+      <form method="post" action="{% url 'enter_apartment_visit' house_id=house.id %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit</button>
+      </form>
+      <!-- Кнопка для удаления дома -->
+      <a href="{% url 'delete_house' house_id=house.id %}">Delete House</a>
+    </div>
+    <hr>
+  {% endfor %}
+
+  <!-- Кнопка "Delete Campaign" -->
+  <a href="{% url 'delete_campaign' campaign_id=campaign.id %}">Delete Campaign</a>
+
+  <br> <!-- Добавим перенос строки, чтобы кнопка "Back to Profile" находилась на новой строке -->
+
+  <!-- Кнопка для возврата на страницу профиля пользователя -->
+  <a href="{% url 'user_profile' %}">Back to Profile</a>
+{% endblock %}

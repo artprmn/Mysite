@@ -1,0 +1,32 @@
+<!-- myapp/templates/home.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to MySite</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        h1, a {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome to MySite!</h1>
+
+    <!-- Кнопки для входа и регистрации -->
+    <a href="{% url 'login' %}">Login</a><br>
+    <a href="{% url 'register' %}">Register</a>
+
+    <!-- Другие элементы страницы по необходимости -->
+</body>
+</html>
